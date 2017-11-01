@@ -7,11 +7,18 @@ const Node = {
   map: transform => node => {
     const transformed = transform(node);
     const {childNodes} = transformed;
-    return {
-      transformed,
-      childNodes: childNodes && childNodes.map(Node.map(transform)),
-    };
-  },
+
+    const o = {
+      childNodes: childNodes && childNodes.map(Node.map(transform))
+    }
+    for (var key in transformed) {
+      if (transformed.hasOwnProperty(key) && key !== 'childNodes') {
+        var element = transformed[key];
+        o[key] = element;
+      }
+    }
+    return o;
+  }
 };
 
 const ENTRY = process.argv[2];
