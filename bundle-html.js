@@ -8,7 +8,7 @@ const Node = {
     const transformed = transform(node);
     const {childNodes} = transformed;
     return {
-      ...transformed,
+      transformed,
       childNodes: childNodes && childNodes.map(Node.map(transform)),
     };
   },
